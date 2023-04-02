@@ -103,12 +103,12 @@ function binarySearch (array, number) {
 
     while (left < right) {
         
+        let mid = Math.floor((right+left+1) / 2);
+
         if (left > right) 
             return false;
         
-        let mid = left + Math.floor((right-left+1) / 2)
-
-        if (number < array[mid])
+        if (array[mid] > number)
             right = mid - 1;
         else 
             left = mid;
@@ -118,5 +118,110 @@ function binarySearch (array, number) {
     return array[left] == number ? left : -1;
 }
 
-console.log(binarySearch([2, 3, 20, 7, 15], 20));
+console.log(binarySearch([2, 3, 20, 7, 15], 2));
 
+
+function binarySearch2 (arr, size, number) {
+
+    let Low = 0;
+    let High = size;
+    
+    while (Low <= High)
+    {
+        let Mid = Math.floor((Low + High) / 2);
+
+        if (number == arr[Mid]) {
+            return Mid;
+        }
+        else if (number > arr[Mid]) {
+            Low = Mid + 1;
+        }
+        else {
+            High = Mid - 1;
+        }
+    }  
+    return false;  
+}
+
+let arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+console.log(binarySearch2(arr2, 8, 1));
+
+
+// 1. Given a queue of integers, reverse the order of the elements in the queue.
+
+let queue = [1, 2, 3, 4];
+function reverseNumber (queue) {
+
+    let stack = [];
+
+    while (queue.length > 0) {
+
+    let temp = queue.shift();
+    stack.push(temp);
+    }
+
+    while (stack.length > 0) {
+
+        let temp = stack.pop();
+        queue.push(temp);
+    }
+}
+
+reverseNumber(queue);
+console.log(queue); // [4, 3, 2, 1]
+
+
+// 2. Implement a function that returns the minimum element in a stack in constant time complexity.
+
+let arrMin = [4, 5, 6, 7, 9, 1];
+let stack = [];
+
+function min (array) {
+
+    let min = array[0];
+    for (let index = 0; index < array.length; index++) {
+        
+        stack.push(array[index]);
+        if (array[index] < min) {
+            min = array[index];
+        }
+    }
+    return min;
+}
+
+console.log(min(arr2)); // 1
+
+// 3. Implement a Queue using 2 stacks s1 and s2.
+
+let arr2stacks = [1, 2, 3, 4];
+
+let Queue = {
+
+    shift: () => {
+        let s1 = [];
+        let s2 = [];
+        let length = arr.length;
+
+        for (let index = 1; index < length; index++) {
+            
+            s2.push(arr[length - index]);
+        }
+
+        for (let index = 1; index < length; index++) {
+            s1.push(s2[length - index - 1]);
+            
+        }
+        arr = s1;
+        return arr[0];
+    },
+
+    push: (item) => {
+        arr.push(item);
+    }
+}
+        
+Queue.shift();
+Queue.push(5);
+
+console.log(arr); // [2, 3, 4, 5]
