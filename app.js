@@ -148,22 +148,23 @@ let arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 console.log(binarySearch2(arr2, 8, 1));
 
 
-// 1. Given a queue of integers, reverse the order of the elements in the queue.
+// Given a queue of integers, reverse the order of the elements in the queue.
 
 let queue = [1, 2, 3, 4];
+
 function reverseNumber (queue) {
 
     let stack = [];
 
     while (queue.length > 0) {
 
-    let temp = queue.shift();
-    stack.push(temp);
+      let temp = queue.shift(); // copy the queue in the stack
+      stack.push(temp);
     }
 
     while (stack.length > 0) {
 
-        let temp = stack.pop();
+        let temp = stack.pop(); // copy the stack in the queue
         queue.push(temp);
     }
 }
@@ -172,56 +173,98 @@ reverseNumber(queue);
 console.log(queue); // [4, 3, 2, 1]
 
 
-// 2. Implement a function that returns the minimum element in a stack in constant time complexity.
+// Implement a function that returns the minimum element in a stack in constant time complexity.
 
-let arrMin = [4, 5, 6, 7, 9, 1];
-let stack = [];
+let stack2 = [];
+let min = 0;
 
-function min (array) {
+function minNumber (num) {
 
-    let min = array[0];
-    for (let index = 0; index < array.length; index++) {
-        
-        stack.push(array[index]);
-        if (array[index] < min) {
-            min = array[index];
-        }
-    }
-    return min;
+  if (stack2.length === 0)
+    min = num;
+
+  stack2.push(num);
+
+  if (num < min)
+    min = num;
 }
 
-console.log(min(arr2)); // 1
+minNumber(20);
+minNumber(10);
+minNumber(5);
+minNumber(30);
+                  // [20, 10, 5, 30]
 
-// 3. Implement a Queue using 2 stacks s1 and s2.
+console.log(min); // 5
 
-let arr2stacks = [1, 2, 3, 4];
+// Implement a Queue using 2 stacks s1 and s2.
 
-let Queue = {
+s1 = [];
+s2 = [];
 
-    shift: () => {
-        let s1 = [];
-        let s2 = [];
-        let length = arr.length;
+function dequeue() {
 
-        for (let index = 1; index < length; index++) {
-            
-            s2.push(arr[length - index]);
+    if (s1.length === 0 && s2.length === 0)
+        return undefined
+
+    let temp = 0;
+
+    if (s2.length === 0) {
+        while (s1.length > 0) {
+        let temp = s1.pop();
+        s2.push(temp);
         }
-
-        for (let index = 1; index < length; index++) {
-            s1.push(s2[length - index - 1]);
-            
-        }
-        arr = s1;
-        return arr[0];
-    },
-
-    push: (item) => {
-        arr.push(item);
     }
-}
-        
-Queue.shift();
-Queue.push(5);
 
-console.log(arr); // [2, 3, 4, 5]
+    temp = s2.pop();
+    return temp;
+}
+
+function enqueue (item) {
+  return s1.push(item);
+}
+  
+enqueue(1);
+enqueue(2);
+enqueue(3);
+enqueue(4);
+
+console.log(dequeue()); // 1
+
+
+//
+
+// let s1 = [];
+
+// function shift () {
+  
+//   let s2 = [];
+//   let length = s1.length;
+//   let num = 0; 
+
+//   for (let index = 1; index < length; index++) {
+      
+//       s2.push(s1[index]);
+//   }
+
+//   num = s1[0];
+//   s1 = s2;
+
+//   return num;
+// }
+
+// function push (item) {
+//     return s1.push(item);
+// }
+   
+//   push(1);
+//   push(2);
+//   push(3);
+//   push(4);
+
+//           console.log(shift());
+
+//   push(5);
+
+
+// console.log(s1); // [2, 3, 4, 5]
